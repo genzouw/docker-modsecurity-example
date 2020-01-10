@@ -1,0 +1,18 @@
+version: "3"
+services:
+  httpd:
+    image: httpd
+    # environment:
+    volumes:
+      - $PWD:/usr/local/apache2/htdocs
+    # restart: always
+    # ports:
+      # - 8080:80
+  proxy:
+    image: fareoffice/modsecurity
+    environment:
+      PARANOIA: 3
+      # SEC_RULE_ENGINE: On
+      PROXY_UPSTREAM_HOST: httpd:80
+    ports:
+      - 80:80
